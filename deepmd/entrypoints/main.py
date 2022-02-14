@@ -19,6 +19,10 @@ from deepmd.entrypoints import (
 )
 from deepmd.loggers import set_log_handles
 
+# Import horovod for parallelization
+import horovod.tensorflow as hvd
+
+
 __all__ = ["main", "parse_args", "get_ll"]
 
 
@@ -423,6 +427,12 @@ def main():
     RuntimeError
         if no command was input
     """
+    # Init horovod
+    hvd.init()
+    config = tf.ConfigProto()
+    config.gpu_options.visible_device_list = str(hvd.local_rank())
+
+
     args = parse_args()
 
     # do not set log handles for None, it is useless

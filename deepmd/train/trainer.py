@@ -31,6 +31,10 @@ import deepmd.op
 
 from deepmd.common import j_must_have, ClassArg, data_requirement
 
+# import horovod
+import horovod.tensorflow as hvd
+
+
 log = logging.getLogger(__name__)
 
 
@@ -345,6 +349,10 @@ class DPTrainer (object):
             optimizer = self.run_opt._HVD.DistributedOptimizer(optimizer)
         else:
             optimizer = tf.train.AdamOptimizer(learning_rate = self.learning_rate)
+	
+	# Apply horovod distribution to optimizer
+	optimizer = hvd.DistributedOptimizer(optimizer)
+	
         apply_op = optimizer.minimize(loss=self.l2_l,
                                       global_step=self.global_step,
                                       var_list=trainable_variables,
@@ -354,11 +362,14 @@ class DPTrainer (object):
         log.info("built training")
 
     def _init_session(self):
+	# Horovod variable broadcast hook
+	hooks = [hvd.BroadcastGlobalVariablesHook(0)]
+
         config = get_tf_session_config()
         device, idx = self.run_opt.my_device.split(":", 1)
         if device == "gpu":
             config.gpu_options.visible_device_list = idx
-        self.sess = tf.Session(config=config)
+        self.sess = tf.Session(config=config, hooks=hooks)
 
         # Initializes or restore global variables
         init_op = tf.global_variables_initializer()
