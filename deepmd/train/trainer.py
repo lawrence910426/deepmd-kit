@@ -229,7 +229,10 @@ class DPTrainer (object):
         self.tensorboard = self.run_opt.is_chief and tr_data.get('tensorboard', False)
         self.tensorboard_log_dir = tr_data.get('tensorboard_log_dir', 'log')
         self.tensorboard_freq = tr_data.get('tensorboard_freq', 1)
-        self.mixed_prec = tr_data.get('mixed_precision', None)
+        self.mixed_prec = {
+            "compute_prec": "float16",
+            "output_prec": "float32"
+        }
         if self.mixed_prec is not None:
             if (self.mixed_prec['compute_prec'] != 'float16' or self.mixed_prec['output_prec'] != 'float32'):
                 raise RuntimeError(
