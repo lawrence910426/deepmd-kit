@@ -743,7 +743,7 @@ class DescrptSeA (DescrptSe):
           # but if sel is zero
           # [588 0] -> [147 0 4] incorrect; the correct one is [588 0 4]
           # So we need to explicitly assign the shape to tf.shape(inputs_i)[0] instead of -1
-          return tf.matmul(tf.reshape(inputs_i, [natom, shape_i[1]//4, 4]), xyz_scatter, transpose_a = True)
+          return tf.matmul(tf.reshape(inputs_i, [natom, shape_i[1]//4, 4]), tf.cast(xyz_scatter, tf.float32), transpose_a = True)
 
 
     @cast_precision
