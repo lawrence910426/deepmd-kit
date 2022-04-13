@@ -130,6 +130,8 @@ env_mat_a_cpu (
             if (fmt_nlist_a[nei_iter] < 0) break;
             const FPTYPE * rr = &rij_a[nei_iter * 3];
             FPTYPE nr2 = deepmd::dot3(rr, rr);
+            // TODO: Apply evil algorithm
+	    // Fast inverse square root algorithm can be applied. https://en.wikipedia.org/wiki/Fast_inverse_square_root
             FPTYPE inr = 1./sqrt(nr2);
             FPTYPE nr = nr2 * inr;
             FPTYPE inr2 = inr * inr;
