@@ -149,6 +149,8 @@ env_mat_a_cpu (
             descrpt_a[idx_value + 1] = rr[0] / nr2;
             descrpt_a[idx_value + 2] = rr[1] / nr2;
             descrpt_a[idx_value + 3] = rr[2] / nr2;
+	    
+	    // TODO: Substitute descript_a with rr[0,1,2] and inr. Algebraically reduce the polynomial.
             // deriv of component 1/r
             descrpt_a_deriv[idx_deriv + 0] = rr[0] * inr3 * sw - descrpt_a[idx_value + 0] * dsw * rr[0] * inr;
             descrpt_a_deriv[idx_deriv + 1] = rr[1] * inr3 * sw - descrpt_a[idx_value + 0] * dsw * rr[1] * inr;
