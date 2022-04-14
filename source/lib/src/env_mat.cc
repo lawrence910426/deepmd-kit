@@ -118,6 +118,8 @@ env_mat_a_cpu (
             }
         }
     }
+    
+    // TODO: Fill is unnecessary.
     // 1./rr, cos(theta), cos(phi), sin(phi)
     descrpt_a.resize (sec_a.back() * 4);
     fill (descrpt_a.begin(), descrpt_a.end(), 0.0);
