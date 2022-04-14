@@ -80,9 +80,6 @@ spline5_switch (
     vv = 1;
   }
   else if (xx < rmax) {
-    // TODO: Polynomial parsing optimization.
-    // vv = (-1)(6x^2+3x+1)(x-1)^3 
-    // uu = (du)(-30)(x^2)(x-1)^2
     FPTYPE uu = (xx - rmin) / (rmax - rmin) ;
     FPTYPE du = 1. / (rmax - rmin) ;
     vv = uu*uu*uu * (-6 * uu*uu + 15 * uu - 10) + 1;
