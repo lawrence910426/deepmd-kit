@@ -142,6 +142,7 @@ env_mat_a_cpu (
             int idx_deriv = nei_iter * 4 * 3;	// 4 components time 3 directions
             int idx_value = nei_iter * 4;	// 4 components
             // 4 value components
+	    // TODO: Use inr instead. Division should be avoided.
             descrpt_a[idx_value + 0] = 1./nr;
             descrpt_a[idx_value + 1] = rr[0] / nr2;
             descrpt_a[idx_value + 2] = rr[1] / nr2;
