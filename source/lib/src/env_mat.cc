@@ -128,6 +128,7 @@ env_mat_a_cpu (
     fill (descrpt_a_deriv.begin(), descrpt_a_deriv.end(), 0.0);
 
     for (int sec_iter = 0; sec_iter < int(sec_a.size()) - 1; ++sec_iter) {
+	// TODO: Apply avx 512 here. 
         for (int nei_iter = sec_a[sec_iter]; nei_iter < sec_a[sec_iter+1]; ++nei_iter) {      
             if (fmt_nlist_a[nei_iter] < 0) break;
             const FPTYPE * rr = &rij_a[nei_iter * 3];
